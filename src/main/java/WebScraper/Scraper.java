@@ -1,8 +1,7 @@
 package WebScraper;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
 import org.jsoup.select.Elements;
@@ -44,7 +43,7 @@ public class Scraper {
 		private String url;
 		private String getData;
 		private List<String> tableRowsList = new ArrayList<String>();
-		private Element element;
+		private Element element = null;
 		private Elements elements;
 		private Document doc;		
 
@@ -74,7 +73,13 @@ public class Scraper {
 		}
 		
 		public url getElementByClass(String getElementByClass) {
-			elements = element.getElementsByClass(getElementByClass);
+			
+			if(!Objects.isNull(element)) {
+				elements = element.getElementsByClass(getElementByClass);
+			}
+			else {
+				elements = doc.getElementsByClass(getElementByClass);
+			}
 			getData = elements.text();
 			return this;
 		}
